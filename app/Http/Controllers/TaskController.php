@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Http\Resources\TaskCollection;
 use App\Http\Resources\TaskResource;
 use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 class TaskController extends Controller
 {
     //
@@ -22,5 +23,16 @@ class TaskController extends Controller
         $validated = $request->validated();
         $task = Task::create($validated);
         return new TaskResource($task);
+    }
+
+    public function update(UpdateTaskRequest $request, Task $task){
+        $validated = $request->validated();
+        $task->update($validated);
+        return new TaskResource($task);
+    }
+
+    public function destroy(Request $request, Task $task){
+        $task->delete();
+        return response()->noContent();
     }
 }
