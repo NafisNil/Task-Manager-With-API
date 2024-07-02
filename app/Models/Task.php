@@ -12,4 +12,13 @@ class Task extends Model
     protected $casts = [
         'is_done' => 'boolean'
     ];
+    /**
+     * Get the user that owns the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
 }
